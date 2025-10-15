@@ -1,0 +1,70 @@
+package com.example.demo.cart.service.impl;
+
+import java.util.List;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.cart.exception.OrderItemEmptyException;
+import com.example.demo.cart.exception.UserNotFoundException;
+import com.example.demo.cart.model.dto.OrderDTO;
+import com.example.demo.cart.model.dto.OrderItemDTO;
+import com.example.demo.cart.model.entity.User;
+import com.example.demo.cart.repository.OrderRepository;
+import com.example.demo.cart.repository.UserRepository;
+import com.example.demo.cart.service.OrderService;
+
+@Service
+public class OrderServiceImpl implements OrderService {
+
+	@Autowired
+	private UserRepository userRepository;
+	
+	@Autowired
+	private OrderRepository orderRepository;
+	
+	@Autowired
+	private ModelMapper modelMapper;
+	
+	@Override
+	public List<OrderDTO> findOrdersByUserId(Long userId) throws UserNotFoundException {
+		// 1. User 是否存在
+		if(!userRepository.existsById(userId)) {
+			throw new UserNotFoundException("查無用戶");
+		}
+		// 2. 查詢訂單
+		return orderRepository.findByUserId(userId) // [Order]->[Order]->[Order]...
+							  .stream()	 			// [Order]  [Order]  [Order]...
+							  .map(order -> modelMapper.map(order, OrderDTO.class)) // [OrderDTO] [OrderDTO] [OrderDTO]...
+							  .toList(); // [OrderDTO]->[OrderDTO]->[OrderDTO]
+	}
+
+	@Override
+	public OrderDTO saveOrder(Long userId, List<OrderItemDTO> orderItems)
+			throws UserNotFoundException, OrderItemEmptyException {
+		// 1. 取得用戶 user
+		User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("無此用戶"));
+		
+		// 2. 建立訂單 order
+		
+		
+		// 3. 設定 order 與 user 的關係 
+		
+		
+		// 4. 建立訂單明細 orderItems
+		
+		
+		// 5. 設定 order 與 orderItem 的關係
+		
+		
+		// 6. 保存 order
+		
+		
+		// 7. order 轉 orderDTO
+		
+		
+		return null;
+	}
+
+}
