@@ -47,7 +47,7 @@ public class ProductController {
 			return new ApiResponse<>(200, "查詢成功", productDTO);
 		} catch (ProductNotFoundException e) {
 			//return new ApiResponse<>(404, "錯誤訊息"+ e.getMessage(), null);
-			return new ApiResponse<>(HttpStatus.NOT_FOUND.value(), "錯誤訊息"+ e.getMessage(), null);
+			return new ApiResponse<>(HttpStatus.NOT_FOUND.value(), "查詢錯誤訊息"+ e.getMessage(), null);
 		}
 		
 	}
@@ -60,10 +60,14 @@ public class ProductController {
 		return new ApiResponse<>(HttpStatus.OK.value(), "新增成功", saveProductDTO);
 	}catch (AddException e) {
 		//return new ApiResponse<>(400, "錯誤訊息:"+ e.getMessage(), null);
-		return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), "錯誤訊息:"+ e.getMessage(), null);
+		return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), "新增失敗:"+ e.getMessage(), null);
+	}catch (Exception e2) {
+		return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), "其他錯誤:"+ e2.getMessage(), null);
 	}
 	
-}
+	}
+	
+	
 	
 		
 	
