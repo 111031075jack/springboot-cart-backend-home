@@ -27,7 +27,7 @@ POST "", "/" 	新增商品 		  範例 "/products" 或 "/products/"
  * */
 @RestController
 @RequestMapping("/products")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 public class ProductController {
 	
 	@Autowired
