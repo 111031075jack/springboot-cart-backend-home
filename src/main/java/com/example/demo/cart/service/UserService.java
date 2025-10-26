@@ -22,7 +22,7 @@ public interface UserService {
 	UserDTO saveUser(UserDTO userDTO) throws AddException;
 	
 	// 用戶關注列表(用戶關注哪些商品) - 正向查詢
-	List<FavoriteProductDTO> getFavoriteProductDTO(Long userId) throws UserNotFoundException;
+	List<FavoriteProductDTO> getFavoriteProducts(Long userId) throws UserNotFoundException;
 	
 	// 商品關注列表(哪些商品被用戶關注) - 反向查詢
 	List<FavoriteUserDTO> getFavoriteUserDTOs(Long productId) throws ProductNotFoundException;
